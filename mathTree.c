@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define wrongOperationError printf("Error: wrong operation\n"); \
             exit(1);
@@ -21,7 +22,10 @@ typedef struct MathTree{
 struct MathTree* makeVariale(double val){ // Single variable
     struct MathTree* ret = malloc(sizeof(MathTree));
     ret->ans = val;
-    ret->oper = operations(none);
+    ret->oper = none;
+    ret->left = NULL;
+    ret->right = NULL;
+    return ret;
 }
 struct MathTree* makeTree(enum operations _operation, MathTree* _left, MathTree* _right){
     checkChildAns(_left)
@@ -46,6 +50,7 @@ struct MathTree* makeTree(enum operations _operation, MathTree* _left, MathTree*
         default:
             wrongOperationError
     }
+    return ret;
 }
 int main() {
 	struct MathTree *a = makeVariale(3);
