@@ -55,7 +55,6 @@ struct MathTree* makeTree(enum operations _operation, MathTree* _left, MathTree*
 int main() {
 	struct MathTree *a = makeVariale(3);
 	struct MathTree *b = makeVariale(2);
-	struct MathTree *c = makeTree(operations(plus), a, b);
-
+	struct MathTree *c = makeTree(divide, a, b);
+	printf("%f", c->ans);
 }
-
