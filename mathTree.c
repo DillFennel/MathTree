@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "math_tree.h"
 
 #define wrongOperationError printf("Error: wrong operation\n"); \
             exit(1);
@@ -8,16 +7,6 @@
             printf("Error: child's ans is empty\n"); \
             exit(1); \
         }
-        
-enum operations { plus, minus, multiply, divide, none };
-
-typedef struct MathTree{
-    struct MathTree *left;
-    struct MathTree *right;
-    double ans;
-    enum operations oper;
-} MathTree;
-
 
 struct MathTree* makeVariale(double val){ // Single variable
     struct MathTree* ret = malloc(sizeof(MathTree));
@@ -52,9 +41,10 @@ struct MathTree* makeTree(enum operations _operation, MathTree* _left, MathTree*
     }
     return ret;
 }
-int main() {
-	struct MathTree *a = makeVariale(3);
-	struct MathTree *b = makeVariale(2);
-	struct MathTree *c = makeTree(divide, a, b);
-	printf("%f", c->ans);
+
+void math_tree_free(MathTree *tree) {
+    if (!tree) return;
+    math_tree_free(tree->left);
+    math_tree_free(tree->right);
+    free(tree);
 }
